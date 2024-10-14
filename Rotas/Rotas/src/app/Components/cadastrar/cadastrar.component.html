@@ -1,0 +1,53 @@
+<div class="container w-50">
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <div>
+      <label for="name">Nome:</label>
+      <input  class="form-control"
+        id="name" 
+        [(ngModel)]="user.name" 
+        name="name" 
+        required>
+      <div *ngIf="userForm.submitted && !user.name">
+        <small style="color: red;">Nome é obrigatório.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="password">Senha:</label>
+      <input class="form-control"
+        type="password" 
+        id="password" 
+        [(ngModel)]="user.password" 
+        name="password" 
+        required 
+        minlength="6" 
+        maxlength="20">
+      <div *ngIf="userForm.submitted && (!user.password || user.password.length < 6 || user.password.length > 20)">
+        <small style="color: red;">Senha deve ter entre 6 e 20 caracteres.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="confirmPassword">Confirmação de Senha:</label>
+      <input class="form-control mb-2"
+        type="password" 
+        id="confirmPassword" 
+        [(ngModel)]="user.confirmPassword" 
+        name="confirmPassword" 
+        required 
+        minlength="6" 
+        maxlength="20">
+      <div *ngIf="userForm.submitted && (!user.confirmPassword || user.confirmPassword.length < 6 || user.confirmPassword.length > 20)">
+        <small style="color: red;">Confirmação de senha deve ter entre 6 e 20 caracteres.</small>
+      </div>
+      <div *ngIf="userForm.submitted && user.password !== user.confirmPassword">
+        <small style="color: red;">As senhas não correspondem.</small>
+      </div>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
+       Cadastrar
+      </button>
+  </form>
+  
+</div>
